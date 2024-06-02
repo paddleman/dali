@@ -1,0 +1,46 @@
+<.header>
+  Listing Teammates
+  <:actions>
+    <.link patch={~p"/teammates/new"}>
+      <.button>New Teammate</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="teammates"
+  rows={@streams.teammates}
+  row_click={fn {_id, teammate} -> JS.navigate(~p"/teammates/#{teammate}") end}
+>
+  <:col :let={{_id, teammate}} label="Project"><%= teammate.project_id %></:col>
+  <:col :let={{_id, teammate}} label="Person"><%= teammate.person_id %></:col>
+  <:col :let={{_id, teammate}} label="Discipline"><%= teammate.discipline_id %></:col>
+  <:col :let={{_id, teammate}} label="Role"><%= teammate.role_id %></:col>
+  <:col :let={{_id, teammate}} label="Role type"><%= teammate.role_type %></:col>
+  <:col :let={{_id, teammate}} label="Responsibilties"><%= teammate.responsibilties %></:col>
+  <:action :let={{_id, teammate}}>
+    <div class="sr-only">
+      <.link navigate={~p"/teammates/#{teammate}"}>Show</.link>
+    </div>
+    <.link patch={~p"/teammates/#{teammate}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, teammate}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: teammate.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="teammate-modal" show on_cancel={JS.patch(~p"/teammates")}>
+  <.live_component
+    module={DaliWeb.TeammateLive.FormComponent}
+    id={@teammate.id || :new}
+    title={@page_title}
+    action={@live_action}
+    teammate={@teammate}
+    patch={~p"/teammates"}
+  />
+</.modal>

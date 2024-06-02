@@ -1,0 +1,31 @@
+<.header>
+  Teammate <%= @teammate.id %>
+  <:subtitle>This is a teammate record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/teammates/#{@teammate}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit teammate</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Project"><%= @teammate.project_id %></:item>
+  <:item title="Person"><%= @teammate.person_id %></:item>
+  <:item title="Discipline"><%= @teammate.discipline_id %></:item>
+  <:item title="Role"><%= @teammate.role_id %></:item>
+  <:item title="Role type"><%= @teammate.role_type %></:item>
+  <:item title="Responsibilties"><%= @teammate.responsibilties %></:item>
+</.list>
+
+<.back navigate={~p"/teammates"}>Back to teammates</.back>
+
+<.modal :if={@live_action == :edit} id="teammate-modal" show on_cancel={JS.patch(~p"/teammates/#{@teammate}")}>
+  <.live_component
+    module={DaliWeb.TeammateLive.FormComponent}
+    id={@teammate.id}
+    title={@page_title}
+    action={@live_action}
+    teammate={@teammate}
+    patch={~p"/teammates/#{@teammate}"}
+  />
+</.modal>

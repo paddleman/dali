@@ -1,0 +1,27 @@
+<.header>
+  Person <%= @person.id %>
+  <:subtitle>This is a person record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/persons/#{@person}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit person</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="First name"><%= @person.first_name %></:item>
+  <:item title="Last name"><%= @person.last_name %></:item>
+</.list>
+
+<.back navigate={~p"/persons"}>Back to persons</.back>
+
+<.modal :if={@live_action == :edit} id="person-modal" show on_cancel={JS.patch(~p"/persons/#{@person}")}>
+  <.live_component
+    module={DaliWeb.PersonLive.FormComponent}
+    id={@person.id}
+    title={@page_title}
+    action={@live_action}
+    person={@person}
+    patch={~p"/persons/#{@person}"}
+  />
+</.modal>
