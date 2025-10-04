@@ -57,6 +57,12 @@ defmodule DaliWeb.Router do
       live "/users/profile", UserLive.Profile, :index
 
       live "/dali", HomeLive
+
+      live "/persons", PersonLive.Index, :index
+      live "/persons/new", PersonLive.Form, :new
+      live "/persons/:id", PersonLive.Show, :show
+      live "/persons/:id/edit", PersonLive.Form, :edit
+
     end
 
     post "/users/update-password", UserSessionController, :update_password

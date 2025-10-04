@@ -41,7 +41,7 @@ defmodule Dali.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 3.0"},
-      {:phoenix, "~> 1.8.0"},
+      {:phoenix, "~> 1.8.1"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.13"},
       {:postgrex, ">= 0.0.0"},
@@ -67,7 +67,8 @@ defmodule Dali.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:geo_postgis, "~> 3.7"}
+      {:geo_postgis, "~> 3.7"},
+      {:tidewave, "~> 0.5.0"}
     ]
   end
 

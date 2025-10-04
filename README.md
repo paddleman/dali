@@ -1,10 +1,8 @@
-# Dali
+# dali
 
-A Phoenix application created from the Dali template.
+A Phoenix application created from the Baseline template.
 
 ## Getting Started
-
-You can copy the <code> clone_and_rename.exs </code> file and run it (examples in the file). It will clone the repository and rename the application to whatever the user specifies.
 
 To start your Phoenix server:
 
@@ -16,15 +14,13 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## Configuration
 
-This application was generated from the Dali template. Key components include:
+This application was generated from the Baseline template. Key components include:
 
 * **Authentication**: User registration, login, and session management
 * **User Profiles**: Avatar uploads, profile editing with modal interface
 * **Theming**: Custom DaisyUI theme with OKLCH color support
+* **Database**: PostgreSQL with Ecto
 * **Styling**: Tailwind CSS with DaisyUI components
-* **Database**: PostgreSQL with Ecto - includes dependency geo_postgis in mix file, and custom postrex type added. User will need to create a postgis extension in the database after the DB is created --- assuming you want spatial capabilities.
-* **Mapping Library** The app is intended to be used with a JS mapping library (MapLibre, Leaflet, OpenLayer, etc) - however none is included.
-* **Tidewave-AI Ready** Included is the tidewave-ai dependency and setup in the endpoint.ex file.
 
 ## Learn More
 
@@ -36,8 +32,8 @@ This application was generated from the Dali template. Key components include:
 
 ## Template Source
 
-This application was generated from the Potamoi template:
-https://github.com/paddleman/potamoi
+This application was generated from the Baseline template:
+https://github.com/paddleman/baseline
 
 ---
 
