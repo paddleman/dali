@@ -1,23 +1,23 @@
 defmodule DaliWeb.ImageUploadComponent do
   @moduledoc """
   A reusable image upload component with thumbnail generation.
-  
+
   Usage in a LiveView:
-    <.live_component 
-      module={DaliWeb.ImageUploadComponent} 
+    <.live_component
+      module={DaliWeb.ImageUploadComponent}
       id="image-upload"
       current_scope={@current_scope}
       uploaded_images={@uploaded_images}
       max_files={5}
       accept={~w(.jpg .jpeg .png .gif .webp)}
     />
-    
+
   Then handle events in your LiveView:
     def handle_info({:image_uploaded, image}, socket) do
       # Add to your uploaded_images list
     end
   """
-  
+
   use DaliWeb, :live_component
 
   @impl true
@@ -28,7 +28,7 @@ defmodule DaliWeb.ImageUploadComponent do
         <label class="block text-sm font-medium text-gray-700 mb-2">
           {assigns[:label] || "Upload Images"}
         </label>
-        
+
         <!-- File Input -->
         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 transition-colors">
           <div class="space-y-1 text-center">
@@ -38,10 +38,10 @@ defmodule DaliWeb.ImageUploadComponent do
             <div class="flex text-sm text-gray-600">
               <label for={"#{@id}-file-input"} class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                 <span>Upload files</span>
-                <input 
+                <input
                   id={"#{@id}-file-input"}
-                  type="file" 
-                  class="sr-only" 
+                  type="file"
+                  class="sr-only"
                   multiple={@max_files > 1}
                   accept={Enum.join(@accept, ",")}
                   phx-hook="ImageUpload"
@@ -103,13 +103,13 @@ defmodule DaliWeb.ImageUploadComponent do
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             <%= for image <- @uploaded_images do %>
               <div class="relative group">
-                <img 
-                  src={Dali.Media.Image.url(image, :thumbnail)} 
+                <img
+                  src={Dali.Media.Image.url(image, :thumbnail)}
                   alt={image.alt_text || image.original_filename}
                   class="w-full h-24 object-cover rounded-lg border border-gray-200"
                 />
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity rounded-lg flex items-center justify-center">
-                  <button 
+                  <button
                     type="button"
                     class="opacity-0 group-hover:opacity-100 bg-red-600 text-white rounded-full p-1 hover:bg-red-700 transition-all"
                     phx-click="remove_image"
@@ -143,7 +143,7 @@ defmodule DaliWeb.ImageUploadComponent do
 
   @impl true
   def update(assigns, socket) do
-    socket = 
+    socket =
       socket
       |> assign(assigns)
       |> assign_defaults()
@@ -156,7 +156,7 @@ defmodule DaliWeb.ImageUploadComponent do
     if length(files) > socket.assigns.max_files do
       {:noreply, assign(socket, error_message: "Maximum #{socket.assigns.max_files} files allowed")}
     else
-      socket = 
+      socket =
         socket
         |> assign(:uploading, true)
         |> assign(:upload_count, length(files))
@@ -173,13 +173,13 @@ defmodule DaliWeb.ImageUploadComponent do
   def handle_event("remove_image", %{"id" => image_id}, socket) do
     # Get the actual image record first
     image = Enum.find(socket.assigns.uploaded_images, &(&1.id == image_id))
-    
+
     case image && Dali.Media.delete_image(socket.assigns.current_scope, image) do
       {:ok, _} ->
         uploaded_images = Enum.reject(socket.assigns.uploaded_images, &(&1.id == image_id))
         notify_parent({:image_removed, image_id})
         {:noreply, assign(socket, uploaded_images: uploaded_images)}
-        
+
       _ ->
         {:noreply, assign(socket, error_message: "Failed to remove image")}
     end
@@ -198,7 +198,7 @@ defmodule DaliWeb.ImageUploadComponent do
     upload_dir = Application.fetch_env!(:dali, :uploads_directory)
     File.mkdir_p!(upload_dir)
 
-    results = 
+    results =
       Enum.map(files, fn file ->
         process_single_file(file, assigns, upload_dir)
       end)
@@ -207,9 +207,9 @@ defmodule DaliWeb.ImageUploadComponent do
       {successes, []} ->
         images = Enum.map(successes, fn {:ok, image} -> image end)
         send(self(), {:upload_complete, images})
-        
+
       {_, errors} ->
-        error_message = 
+        error_message =
           errors
           |> Enum.map(fn {:error, msg} -> msg end)
           |> Enum.join(", ")
@@ -229,7 +229,7 @@ defmodule DaliWeb.ImageUploadComponent do
          {:ok, image} <- create_image_record(file, unique_filename, image_info, assigns) do
       {:ok, image}
     else
-      {:error, reason} -> 
+      {:error, reason} ->
         File.rm(file_path)  # Cleanup on error
         {:error, "Failed to upload #{file["name"]}: #{inspect(reason)}"}
     end

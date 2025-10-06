@@ -489,7 +489,7 @@ defmodule DaliWeb.CoreComponents do
       <label class="block text-sm font-medium text-gray-700">
         {@label}
       </label>
-      
+
       <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 transition-colors">
         <div class="space-y-1 text-center">
           <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
@@ -516,7 +516,7 @@ defmodule DaliWeb.CoreComponents do
           <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
             <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" style={"width: #{entry.progress}%"}></div>
           </div>
-          
+
           <!-- Show upload errors -->
           <%= for err <- upload_errors(@upload, entry) do %>
             <p class="text-red-600 text-sm mt-1">{error_to_string(err)}</p>

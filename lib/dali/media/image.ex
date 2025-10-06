@@ -12,21 +12,21 @@ defmodule Dali.Media.Image do
     field :file_size, :integer
     field :width, :integer
     field :height, :integer
-    
+
     # File paths for different sizes
     field :original_path, :string
     field :large_path, :string
     field :thumbnail_path, :string
-    
+
     # EXIF data as JSON
     field :exif_data, :map
-    
+
     # Upload metadata
     field :upload_completed, :boolean, default: false
     field :processing_completed, :boolean, default: false
     field :alt_text, :string
     field :caption, :string
-    
+
     # User scoping
     field :user_id, :integer
 
@@ -42,7 +42,7 @@ defmodule Dali.Media.Image do
       :upload_completed, :user_id
     ])
     |> validate_required([
-      :filename, :original_filename, :content_type, 
+      :filename, :original_filename, :content_type,
       :file_size, :original_path, :user_id
     ])
     |> validate_inclusion(:content_type, [
@@ -57,7 +57,7 @@ defmodule Dali.Media.Image do
   def processing_changeset(image, attrs) do
     image
     |> cast(attrs, [
-      :large_path, :thumbnail_path, :exif_data, 
+      :large_path, :thumbnail_path, :exif_data,
       :processing_completed, :width, :height
     ])
   end

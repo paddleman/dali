@@ -61,10 +61,10 @@ defmodule Dali.Media do
   def delete_image(current_scope, %Pics{} = image) do
     # Ensure user owns the image
     ^image = get_image!(current_scope, image.id)
-    
+
     # Delete files
     delete_image_files(image)
-    
+
     Repo.delete(image)
   end
 
@@ -74,7 +74,7 @@ defmodule Dali.Media do
   def change_image(current_scope, %Pics{} = image, attrs \\ %{}) do
     # Ensure user owns the image if it exists
     if image.id, do: get_image!(current_scope, image.id)
-    
+
     Pics.changeset(image, attrs)
   end
 
@@ -90,14 +90,14 @@ defmodule Dali.Media do
     try do
       upload_dir = Application.fetch_env!(:dali, :uploads_directory)
       original_file = Path.join(upload_dir, image.original_path)
-      
+
       # Extract EXIF data
       exif_data = extract_exif_data(original_file)
-      
+
       # Create different sizes
       large_path = create_large_image(original_file, image.filename)
       thumbnail_path = create_thumbnail(original_file, image.filename)
-      
+
       # Update image record
       image
       |> Pics.processing_changeset(%{
@@ -107,13 +107,13 @@ defmodule Dali.Media do
         processing_completed: true
       })
       |> Repo.update()
-      
+
     rescue
       error ->
         # Log error and mark processing as failed
         require Logger
         Logger.error("Image processing failed for #{image.id}: #{inspect(error)}")
-        
+
         image
         |> Pics.processing_changeset(%{processing_completed: false})
         |> Repo.update()
@@ -133,7 +133,7 @@ defmodule Dali.Media do
     large_filename = "large_" <> filename
     upload_dir = Application.fetch_env!(:dali, :uploads_directory)
     large_path = Path.join(upload_dir, large_filename)
-    
+
     case Image.open(original_file) do
       {:ok, image} ->
         # Resize to max 1200px on longest side, maintaining aspect ratio
@@ -154,7 +154,7 @@ defmodule Dali.Media do
     thumbnail_filename = "thumb_" <> filename
     upload_dir = Application.fetch_env!(:dali, :uploads_directory)
     thumbnail_path = Path.join(upload_dir, thumbnail_filename)
-    
+
     case Image.open(original_file) do
       {:ok, image} ->
         # Create 300x300 thumbnail, cropped to center
@@ -173,7 +173,7 @@ defmodule Dali.Media do
 
   defp delete_image_files(image) do
     upload_dir = Application.fetch_env!(:dali, :uploads_directory)
-    
+
     [image.original_path, image.large_path, image.thumbnail_path]
     |> Enum.reject(&is_nil/1)
     |> Enum.each(fn path ->
