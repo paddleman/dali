@@ -63,6 +63,28 @@ defmodule DaliWeb.Router do
       live "/persons/:id", PersonLive.Show, :show
       live "/persons/:id/edit", PersonLive.Form, :edit
 
+      # Lookup Tables
+      live "/organization_types", OrganizationTypeLive.Index, :index
+      live "/organization_types/new", OrganizationTypeLive.Form, :new
+      live "/organization_types/:id", OrganizationTypeLive.Show, :show
+      live "/organization_types/:id/edit", OrganizationTypeLive.Form, :edit
+
+      live "/disciplines", DisciplineLive.Index, :index
+      live "/disciplines/new", DisciplineLive.Form, :new
+      live "/disciplines/:id", DisciplineLive.Show, :show
+      live "/disciplines/:id/edit", DisciplineLive.Form, :edit
+
+      live "/task_types", TaskTypeLive.Index, :index
+      live "/task_types/new", TaskTypeLive.Form, :new
+      live "/task_types/:id", TaskTypeLive.Show, :show
+      live "/task_types/:id/edit", TaskTypeLive.Form, :edit
+
+      # Organizations
+      live "/organizations", OrganizationLive.Index, :index
+      live "/organizations/new", OrganizationLive.Form, :new
+      live "/organizations/:id", OrganizationLive.Show, :show
+      live "/organizations/:id/edit", OrganizationLive.Form, :edit
+
     end
 
     post "/users/update-password", UserSessionController, :update_password

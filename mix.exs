@@ -68,7 +68,8 @@ defmodule Dali.MixProject do
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
       {:geo_postgis, "~> 3.7"},
-      {:tidewave, "~> 0.5.0"}
+      {:tidewave, "~> 0.5.0"},
+      {:image, "~> 0.52"}
     ]
   end
 

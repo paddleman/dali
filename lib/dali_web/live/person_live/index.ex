@@ -6,7 +6,7 @@ defmodule DaliWeb.PersonLive.Index do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
+    <Layouts.main_app flash={@flash} current_scope={@current_scope}>
       <.header>
         Listing Persons
         <:actions>
@@ -38,7 +38,7 @@ defmodule DaliWeb.PersonLive.Index do
           </.link>
         </:action>
       </.table>
-    </Layouts.app>
+    </Layouts.main_app>
     """
   end
 

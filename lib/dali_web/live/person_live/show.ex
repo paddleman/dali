@@ -6,7 +6,7 @@ defmodule DaliWeb.PersonLive.Show do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
+    <Layouts.main_app flash={@flash} current_scope={@current_scope}>
       <.header>
         Person {@person.id}
         <:subtitle>This is a person record from your database.</:subtitle>
@@ -24,7 +24,7 @@ defmodule DaliWeb.PersonLive.Show do
         <:item title="First name">{@person.first_name}</:item>
         <:item title="Last name">{@person.last_name}</:item>
       </.list>
-    </Layouts.app>
+    </Layouts.main_app>
     """
   end
 

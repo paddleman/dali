@@ -7,7 +7,7 @@ defmodule DaliWeb.PersonLive.Form do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
+    <Layouts.main_app flash={@flash} current_scope={@current_scope}>
       <.header>
         {@page_title}
         <:subtitle>Use this form to manage person records in your database.</:subtitle>
@@ -21,7 +21,7 @@ defmodule DaliWeb.PersonLive.Form do
           <.button navigate={return_path(@current_scope, @return_to, @person)}>Cancel</.button>
         </footer>
       </.form>
-    </Layouts.app>
+    </Layouts.main_app>
     """
   end
 

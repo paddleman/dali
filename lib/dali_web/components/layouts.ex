@@ -119,11 +119,52 @@ defmodule DaliWeb.Layouts do
       </div>
     </header>
 
-    <main class="px-2 py-2 ">
-      <div class="mx-auto ">
-        {render_slot(@inner_block)}
-      </div>
-    </main>
+    <div class="flex">
+      <!-- Temporary Testing Sidebar -->
+      <aside class="w-64 min-h-screen bg-base-200 p-4">
+        <div class="mb-4">
+          <h3 class="font-semibold text-lg mb-2">🧪 Test Navigation</h3>
+          <p class="text-xs text-gray-600 mb-4">Temporary - for easy testing</p>
+        </div>
+
+        <div class="space-y-2">
+          <!-- Main Routes -->
+          <div class="mb-4">
+            <h4 class="font-medium text-sm mb-2 text-gray-700">Main App</h4>
+            <.link href={~p"/dali"} class="btn btn-ghost btn-sm w-full justify-start">
+              <.icon name="hero-home" class="w-4 h-4" />
+              Dashboard
+            </.link>
+          </div>
+
+          <!-- Lookup Tables -->
+          <div class="mb-4">
+            <h4 class="font-medium text-sm mb-2 text-gray-700">Lookup Tables</h4>
+            <.link href={~p"/organization_types"} class="btn btn-ghost btn-sm w-full justify-start">
+              <.icon name="hero-building-office" class="w-4 h-4" />
+              Organization Types ✅
+            </.link>
+            <.link href={~p"/disciplines"} class="btn btn-ghost btn-sm w-full justify-start">
+              <.icon name="hero-academic-cap" class="w-4 h-4" />
+              Disciplines ✅
+            </.link>
+            <.link href={~p"/task_types"} class="btn btn-ghost btn-sm w-full justify-start">
+              <.icon name="hero-clipboard-document-list" class="w-4 h-4" />
+              Task Types ✅
+            </.link>
+          </div>
+
+
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 px-6 py-4">
+        <div class="mx-auto">
+          {render_slot(@inner_block)}
+        </div>
+      </main>
+    </div>
 
     <.flash_group flash={@flash} />
     """
