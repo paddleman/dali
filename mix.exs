@@ -69,7 +69,7 @@ defmodule Dali.MixProject do
       {:bandit, "~> 1.5"},
       {:geo_postgis, "~> 3.7"},
       {:tidewave, "~> 0.5.0"},
-      {:image, "~> 0.52"}
+      {:image, "~> 0.62.1"}
     ]
   end
 

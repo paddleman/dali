@@ -335,7 +335,7 @@ defmodule DaliWeb.CoreComponents do
 
     ~H"""
     <table class="table table-zebra">
-      <thead>
+      <thead class="text-lg text-zinc-100 border-b b-2 border-zinc-200">
         <tr>
           <th :for={col <- @col}>{col[:label]}</th>
           <th :if={@action != []}>

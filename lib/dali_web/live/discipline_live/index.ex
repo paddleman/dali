@@ -8,8 +8,9 @@ defmodule DaliWeb.DisciplineLive.Index do
   def render(assigns) do
     ~H"""
     <Layouts.main_app flash={@flash} current_scope={@current_scope}>
+    <div class="w-2/3 mx-auto ">
       <.header>
-        Listing Disciplines
+        Disciplines (Lookup)
         <:actions>
           <.button variant="primary" phx-click="show_modal" phx-value-action="new">
             <.icon name="hero-plus" /> New Discipline
@@ -43,7 +44,7 @@ defmodule DaliWeb.DisciplineLive.Index do
           </.link>
         </:action>
       </.table>
-
+      </div>
       <!-- DaisyUI Modal for Form -->
       <%= if @show_modal do %>
         <div class="modal modal-open">

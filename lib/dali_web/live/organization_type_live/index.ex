@@ -8,16 +8,17 @@ defmodule DaliWeb.OrganizationTypeLive.Index do
   def render(assigns) do
     ~H"""
     <Layouts.main_app flash={@flash} current_scope={@current_scope}>
-      <.header>
-        Listing Organization types
+      <div class="w-3/4 mx-auto ">
+      <.header class="">
+        Organization Types (Lookup)
         <:actions>
           <.button variant="primary" phx-click="show_modal" phx-value-action="new">
-            <.icon name="hero-plus" /> New Organization type
+            <.icon name="hero-plus" /> New Organization Type
           </.button>
         </:actions>
       </.header>
 
-      <.table
+      <.table class=""
         id="organization_types"
         rows={@streams.organization_types}
         row_click={fn {_id, organization_type} -> JS.navigate(~p"/organization_types/#{organization_type}") end}
@@ -43,6 +44,7 @@ defmodule DaliWeb.OrganizationTypeLive.Index do
           </.link>
         </:action>
       </.table>
+      </div>
 
       <!-- DaisyUI Modal for Form -->
       <%= if @show_modal do %>
